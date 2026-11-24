@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Pocket Mini Pro v2</title>
+<meta name="theme-color" content="#FFFFFF" id="metaTheme" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" type="image/png" href="icon-192.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Pocket Pro" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('pmp_v2_theme')||'light'}catch(e){document.documentElement.dataset.theme='light'}</script>
+<style>
+:root{--bg-void:#050507;--bg-matte:#0A0A0D;--bg-card:#141419;--bg-card-elevated:#1C1C24;--orange-500:#FF6B00;--orange-600:#E05A00;--orange-glow:rgba(255,107,0,.28);--gold-400:#FFD166;--gold-500:#F5B82E;--gold-600:#D99B16;--gold-glow:rgba(245,184,46,.22);--text-primary:#F8FAFC;--text-secondary:#9CA3AF;--text-muted:#6B7280;--border-subtle:rgba(245,184,46,.16);--border-strong:rgba(245,184,46,.38);--green-400:#34D399;--green-bg:rgba(52,211,153,.12);--red-400:#F87171;--red-bg:rgba(248,113,113,.14);--blue-400:#60A5FA;--blue-bg:rgba(96,165,250,.14);--wa-green:#25D366;--radius-xl:22px;--radius-lg:16px;--radius-md:12px;--radius-sm:8px;--shadow-card:0 10px 30px rgba(0,0,0,.55);--ink:255 255 255;--text-strong:#FFFFFF;--bg-inset:#0A0A0D;--topbar-bg:rgba(10,10,13,.92);--metric-bg:rgba(10,10,13,.65);--dock-bg:rgba(20,20,25,.96);--hero-bg:linear-gradient(145deg,#1A1612 0%,#141419 55%,#1E170D 100%);--lock-bg:radial-gradient(circle at top right,#1f140a 0%,#0A0A0D 58%);--donut-empty:#262630;color-scheme:dark}
+[data-theme="light"]{--bg-void:#E9EBEF;--bg-matte:#FFFFFF;--bg-card:#F6F7F9;--bg-card-elevated:#ECEEF2;--bg-inset:#FFFFFF;--orange-500:#EA5B00;--orange-glow:rgba(234,91,0,.25);--gold-400:#A86A00;--gold-600:#C98A0A;--text-primary:#1A1B22;--text-secondary:#555B68;--text-muted:#8A909C;--text-strong:#0E0F14;--border-subtle:rgba(201,138,10,.28);--border-strong:rgba(201,138,10,.55);--green-400:#059669;--green-bg:rgba(5,150,105,.12);--red-400:#DC2626;--red-bg:rgba(220,38,38,.1);--blue-400:#2563EB;--blue-bg:rgba(37,99,235,.1);--shadow-card:0 6px 18px rgba(20,20,40,.08);--ink:0 0 0;--topbar-bg:rgba(255,255,255,.92);--metric-bg:rgba(255,255,255,.8);--dock-bg:rgba(255,255,255,.96);--hero-bg:linear-gradient(145deg,#FFF3E0 0%,#FFFFFF 55%,#FFEFCC 100%);--lock-bg:radial-gradient(circle at top right,#FFE8C7 0%,#FFFFFF 58%);--donut-empty:#E2E4EA;color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{background-color:var(--bg-void);color:var(--text-primary);display:flex;justify-content:center;min-height:100vh;overflow-x:hidden}
+.app-shell{width:100%;max-width:480px;min-height:100vh;background-color:var(--bg-matte);position:relative;display:flex;flex-direction:column;border-left:1px solid rgb(var(--ink) / .04);border-right:1px solid rgb(var(--ink) / .04);box-shadow:0 0 60px rgba(0,0,0,.85)}
+.brand-logo{display:flex;align-items:center;gap:10px}
+.logo-emblem{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--orange-500) 0%,var(--gold-500) 100%);display:flex;align-items:center;justify-content:center;color:#0A0A0D;font-weight:900;box-shadow:0 4px 16px var(--orange-glow)}
+.brand-name{font-size:1.12rem;font-weight:800;background:linear-gradient(90deg,var(--text-strong) 0%,var(--gold-400) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.3px}
+.lang-toggle-btn{background:var(--bg-card-elevated);border:1px solid var(--border-strong);color:var(--gold-400);padding:7px 13px;border-radius:999px;font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:transform .12s,background .2s}
+.lang-toggle-btn:active{transform:scale(.95);background:rgba(245,184,46,.15)}
+.top-bar{padding:calc(16px + env(safe-area-inset-top)) 16px 10px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--topbar-bg);backdrop-filter:blur(12px);z-index:200;border-bottom:1px solid rgb(var(--ink) / .04)}
+.top-right-tools{display:flex;align-items:center;gap:8px}
+.circle-icon-btn{width:34px;height:34px;border-radius:50%;background:var(--bg-card-elevated);border:1px solid var(--border-subtle);color:var(--gold-400);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.circle-icon-btn:active{background:var(--orange-500);color:#0A0A0D}
+.main-scroll{flex:1;padding:12px 16px 105px;overflow-y:auto}
+.view-panel{display:none;animation:panelFade .22s ease}
+.view-panel.active{display:block}
+@keyframes panelFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.period-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg-card);padding:5px;border-radius:var(--radius-md);border:1px solid var(--border-subtle);margin-bottom:14px}
+.period-btn{padding:8px 4px;border:none;border-radius:var(--radius-sm);background:transparent;color:var(--text-secondary);font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s}
+.period-btn.active{background:linear-gradient(135deg,var(--orange-500) 0%,var(--gold-500) 100%);color:#0A0A0D;box-shadow:0 3px 12px var(--orange-glow)}
+.hero-card{background:var(--hero-bg);border:1px solid var(--border-strong);border-radius:var(--radius-xl);padding:18px;margin-bottom:14px;box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+.hero-card::after{content:"";position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,107,0,.22),transparent 70%);pointer-events:none}
+.hero-label{font-size:.78rem;font-weight:700;color:var(--gold-400);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.hero-balance{font-size:2.15rem;font-weight:900;color:var(--text-strong);letter-spacing:-.5px;margin-bottom:16px}
+.hero-balance span.rm{color:var(--orange-500);font-size:1.25rem;margin-right:5px}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:14px;border-top:1px solid rgb(var(--ink) / .08)}
+.metric-box{background:var(--metric-bg);border:1px solid rgb(var(--ink) / .06);border-radius:var(--radius-md);padding:9px 8px}
+.metric-title{font-size:.7rem;color:var(--text-secondary);margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.metric-val{font-size:.88rem;font-weight:800;word-break:break-word}
+.surface-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px;margin-bottom:14px;box-shadow:var(--shadow-card)}
+.card-top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.card-heading{font-size:.94rem;font-weight:800;color:var(--gold-400);display:flex;align-items:center;gap:7px}
+.edit-target-btn{background:rgba(255,107,0,.14);border:1px solid rgba(255,107,0,.45);color:var(--orange-500);padding:5px 11px;border-radius:999px;font-size:.75rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px}
+.edit-target-btn:active{background:var(--orange-500);color:#0A0A0D}
+.target-numbers{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:.84rem}
+.target-spent{font-weight:800;color:var(--text-strong);font-size:1.02rem}
+.target-limit{color:var(--text-secondary);font-weight:600}
+.progress-shell{height:12px;background:var(--bg-inset);border-radius:999px;border:1px solid rgb(var(--ink) / .08);overflow:hidden;margin-bottom:8px}
+.progress-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold-500) 0%,var(--orange-500) 100%);transition:width .45s cubic-bezier(.22,1,.36,1),background .3s}
+.progress-bar.warning{background:linear-gradient(90deg,var(--orange-500) 0%,#EF4444 100%)}
+.progress-bar.exceeded{background:#EF4444;box-shadow:0 0 12px rgba(239,68,68,.6)}
+.target-status-row{display:flex;justify-content:space-between;align-items:center;font-size:.76rem;font-weight:600}
+.donut-layout{display:flex;align-items:center;gap:16px;margin-top:8px}
+.donut-wrap{position:relative;width:124px;height:124px;flex-shrink:0}
+.donut-center-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.donut-center-lbl{font-size:.64rem;color:var(--text-secondary);text-transform:uppercase}
+.donut-center-val{font-size:.86rem;font-weight:800;color:var(--gold-400)}
+.legend-list{flex:1;display:flex;flex-direction:column;gap:7px;min-width:0}
+.legend-item{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;gap:6px}
+.legend-left{display:flex;align-items:center;gap:7px;min-width:0}
+.legend-swatch{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.legend-name{color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.legend-pct{color:var(--text-secondary);font-weight:700;flex-shrink:0}
+.loan-summary-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgb(var(--ink) / .06)}
+.loan-mini-card{background:var(--bg-inset);border:1px solid rgb(var(--ink) / .06);border-radius:var(--radius-md);padding:10px}
+.loan-mini-lbl{font-size:.72rem;color:var(--text-secondary);margin-bottom:3px}
+.loan-mini-val{font-size:.95rem;font-weight:800}
+.tx-stack{display:flex;flex-direction:column;gap:10px}
+.tx-row{background:var(--bg-card);border:1px solid rgb(var(--ink) / .06);border-radius:var(--radius-md);padding:12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tx-row.settled{opacity:.58}
+.tx-left{display:flex;align-items:center;gap:11px;min-width:0;flex:1}
+.tx-emoji-box{width:42px;height:42px;border-radius:13px;background:var(--bg-card-elevated);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.tx-details{min-width:0;flex:1}
+.tx-title{font-size:.92rem;font-weight:700;color:var(--text-strong);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-sub{font-size:.74rem;color:var(--text-secondary);margin-top:3px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.pill-tag{padding:2px 7px;border-radius:6px;font-size:.66rem;font-weight:800}
+.tx-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.tx-amt{font-size:.95rem;font-weight:800}
+.tx-btn-row{display:flex;align-items:center;gap:6px}
+.action-chip-btn{border:1px solid rgb(var(--ink) / .12);background:var(--bg-card-elevated);color:var(--text-primary);font-size:.68rem;font-weight:700;padding:4px 8px;border-radius:7px;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.action-chip-btn.wa-btn{background:rgba(37,211,102,.14);border-color:rgba(37,211,102,.45);color:var(--wa-green)}
+.action-chip-btn.settle-btn{background:rgba(245,184,46,.15);border-color:rgba(245,184,46,.45);color:var(--gold-400)}
+.action-chip-btn.del-btn{background:var(--red-bg);border-color:rgba(248,113,113,.35);color:var(--red-400)}
+.search-input{width:100%;padding:12px 14px;border-radius:var(--radius-md);border:1px solid var(--border-subtle);background:var(--bg-card);color:var(--text-strong);font-size:.9rem;margin-bottom:10px;outline:none}
+.search-input:focus{border-color:var(--orange-500)}
+.filter-scroll{display:flex;gap:7px;overflow-x:auto;padding-bottom:8px;margin-bottom:10px;scrollbar-width:none}
+.filter-scroll::-webkit-scrollbar{display:none}
+.filter-pill{padding:7px 13px;border-radius:999px;border:1px solid var(--border-subtle);background:var(--bg-card);color:var(--text-secondary);font-size:.78rem;font-weight:700;white-space:nowrap;cursor:pointer}
+.filter-pill.active{background:linear-gradient(135deg,var(--orange-500),var(--gold-500));color:#0A0A0D;border-color:transparent}
+.sheet-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(4px);z-index:900;display:none;align-items:flex-end;justify-content:center}
+.sheet-backdrop.open{display:flex}
+.bottom-sheet{width:100%;max-width:480px;background:var(--bg-card);border-top:2px solid var(--gold-500);border-top-left-radius:26px;border-top-right-radius:26px;padding:18px 18px 28px;max-height:92vh;overflow-y:auto;animation:slideUp .25s cubic-bezier(.22,1,.36,1)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sheet-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sheet-title{font-size:1.05rem;font-weight:800;color:var(--gold-400)}
+.close-sheet-btn{width:32px;height:32px;border-radius:50%;border:1px solid rgb(var(--ink) / .12);background:var(--bg-card-elevated);color:var(--text-secondary);font-size:1rem;cursor:pointer}
+.quick-chips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.entry-menu{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.entry-hint{grid-column:1/-1;font-size:.8rem;color:var(--text-secondary);margin-bottom:2px}
+.entry-card{background:var(--bg-matte);border:1.5px solid var(--border-subtle);border-radius:var(--radius-lg);padding:18px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .15s}
+.entry-card:active{border-color:var(--orange-500);background:rgba(255,107,0,.12);transform:scale(.97)}
+.entry-card-icon{font-size:2rem}
+.entry-card-title{font-size:.92rem;font-weight:800;color:var(--text-strong);text-align:center}
+.entry-card-sub{font-size:.9rem;letter-spacing:3px}
+.group-bar{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:1rem;font-weight:800;color:var(--gold-400)}
+.back-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border-strong);background:var(--bg-card-elevated);color:var(--gold-400);font-size:1.1rem;cursor:pointer}
+.manual-toggle{display:inline-flex;border:1px solid var(--border-strong);border-radius:999px;overflow:hidden;flex-shrink:0}
+.manual-toggle button{padding:6px 12px;border:none;background:transparent;color:var(--text-secondary);font-size:.75rem;font-weight:800;cursor:pointer}
+.manual-toggle button.active{background:linear-gradient(135deg,var(--orange-500),var(--gold-500));color:#0A0A0D}
+.manual-intro{font-size:.8rem;color:var(--text-secondary);margin-bottom:12px;line-height:1.5}
+.manual-item{background:var(--bg-matte);border:1px solid var(--border-subtle);border-radius:var(--radius-md);margin-bottom:8px;overflow:hidden}
+.manual-item summary{padding:12px 14px;font-weight:800;font-size:.88rem;color:var(--text-strong);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+.manual-item summary::-webkit-details-marker{display:none}
+.manual-item summary::after{content:'＋';margin-left:auto;color:var(--gold-400)}
+.manual-item[open] summary::after{content:'－'}
+.manual-body{padding:0 14px 12px;font-size:.82rem;color:var(--text-secondary);line-height:1.55}
+.manual-body ul{padding-left:18px}
+.manual-body li{margin-bottom:5px}
+.chip-group-title{grid-column:1/-1;font-size:.78rem;font-weight:800;color:var(--gold-400);padding:4px 0 5px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:6px}
+.chip-group-title:not(:first-child){margin-top:6px}
+.cat-chip{background:var(--bg-matte);border:1.5px solid rgb(var(--ink) / .08);border-radius:var(--radius-md);padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:all .15s}
+.cat-chip.selected{border-color:var(--orange-500);background:rgba(255,107,0,.15);box-shadow:0 0 12px rgba(255,107,0,.25)}
+.cat-chip-icon{font-size:1.35rem}
+.cat-chip-text{font-size:.72rem;font-weight:700;color:var(--text-primary);text-align:center;line-height:1.2}
+.form-field{margin-bottom:12px}
+.field-lbl{display:block;font-size:.76rem;font-weight:700;color:var(--gold-400);margin-bottom:5px}
+.dark-input{width:100%;padding:12px 14px;border-radius:var(--radius-md);border:1.5px solid rgb(var(--ink) / .12);background:var(--bg-matte);color:var(--text-strong);font-size:.96rem;outline:none}
+.dark-input:focus{border-color:var(--orange-500)}
+.rm-input-box{position:relative;display:flex;align-items:center}
+.rm-tag{position:absolute;left:14px;font-size:1.15rem;font-weight:900;color:var(--orange-500)}
+.rm-input{padding-left:52px;font-size:1.5rem;font-weight:900;color:var(--gold-400)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cta-gold-btn{width:100%;padding:14px;border:none;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--orange-500) 0%,var(--gold-500) 100%);color:#0A0A0D;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 6px 20px var(--orange-glow);transition:transform .1s}
+.cta-gold-btn:active{transform:scale(.98)}
+.bottom-dock{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--dock-bg);backdrop-filter:blur(12px);border-top:1px solid var(--border-subtle);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px calc(12px + env(safe-area-inset-bottom));z-index:400}
+.dock-tab{background:none;border:none;color:var(--text-secondary);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:.72rem;font-weight:700;cursor:pointer}
+.dock-tab.active{color:var(--gold-400)}
+.fab-plus{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--orange-500) 0%,var(--gold-500) 100%);color:#0A0A0D;display:flex;align-items:center;justify-content:center;margin-top:-26px;border:4px solid var(--bg-matte);box-shadow:0 6px 20px rgba(255,107,0,.55);transition:transform .15s}
+.fab-plus:active{transform:scale(.92)}
+.dialog-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px}
+.dialog-backdrop.show{display:flex}
+.dialog-box{width:100%;max-width:360px;background:var(--bg-card);border:1px solid var(--border-strong);border-radius:var(--radius-lg);padding:20px;text-align:center}
+.dialog-title{font-size:1.05rem;font-weight:800;color:var(--gold-400);margin-bottom:8px}
+.dialog-text{white-space:pre-line;word-break:break-word;font-size:.86rem;color:var(--text-secondary);margin-bottom:16px;line-height:1.45}
+.dialog-actions{display:flex;gap:10px}
+.dialog-btn{flex:1;padding:11px;border-radius:var(--radius-sm);border:1px solid rgb(var(--ink) / .14);background:var(--bg-card-elevated);color:var(--text-strong);font-weight:700;cursor:pointer}
+.dialog-btn.primary{background:linear-gradient(135deg,var(--orange-500),var(--gold-500));color:#0A0A0D;border:none}
+.toast-banner{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-90px);background:var(--bg-card-elevated);color:var(--gold-400);border:1px solid var(--gold-500);padding:10px 18px;border-radius:999px;font-size:.82rem;font-weight:700;z-index:3000;transition:transform .25s ease;box-shadow:0 8px 24px rgba(0,0,0,.6);white-space:nowrap}
+.toast-banner.show{transform:translateX(-50%) translateY(0)}
+.setting-item{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid rgb(var(--ink) / .06);gap:10px}
+.setting-item:last-child{border-bottom:none}
+.empty-msg{text-align:center;padding:26px 12px;color:var(--text-muted);font-size:.85rem}
+</style>
+</head>
+<body>
+
+<div id="toastBanner" class="toast-banner"></div>
+
+<div id="dialogBackdrop" class="dialog-backdrop">
+  <div class="dialog-box">
+    <div id="dialogTitle" class="dialog-title"></div>
+    <div id="dialogText" class="dialog-text"></div>
+    <div id="dialogInputWrap" style="display:none;margin-bottom:16px;">
+      <div class="rm-input-box">
+        <span class="rm-tag">RM</span>
+        <input type="number" step="1" min="0" id="dialogNumberInput" class="dark-input rm-input" placeholder="1500" />
+      </div>
+    </div>
+    <div id="dialogTextWrap" style="display:none;margin-bottom:16px;"><input type="text" id="dialogTextInput" class="dark-input" autocomplete="off" autocapitalize="characters" /></div>
+    <div class="dialog-actions">
+      <button id="dialogCancelBtn" class="dialog-btn" onclick="closeDialog()">Cancel</button>
+      <button id="dialogOkBtn" class="dialog-btn primary">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="app-shell">
+  
+  <header class="top-bar">
+    <div class="brand-logo">
+      <div class="logo-emblem" style="width:34px;height:34px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+      </div>
+      <div><div class="brand-name" style="font-size:1rem;">Pocket Mini Pro</div></div>
+    </div>
+    <div class="top-right-tools">
+      <button class="lang-toggle-btn" onclick="toggleLanguage()"><span id="topLangText">नेपाली / EN</span></button>
+      <button class="circle-icon-btn theme-btn" onclick="toggleTheme()" title="Night mode"></button>
+      <button class="circle-icon-btn" onclick="switchTab('settings')" title="Settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-scroll">
+
+    <section id="panel-dashboard" class="view-panel active">
+      <div class="period-bar">
+        <button class="period-btn active" data-period="weekly" onclick="setPeriod('weekly')" id="btnPeriodWeekly">साप्ताहिक</button>
+        <button class="period-btn" data-period="monthly" onclick="setPeriod('monthly')" id="btnPeriodMonthly">मासिक</button>
+        <button class="period-btn" data-period="all" onclick="setPeriod('all')" id="btnPeriodAll">सबै</button>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-label" id="lblHeroBalance">खुद बचत / Net Balance</div>
+        <div class="hero-balance"><span class="rm">RM</span><span id="valNetBalance">0.00</span></div>
+        <div class="hero-metrics">
+          <div class="metric-box">
+            <div class="metric-title"><span style="color:var(--green-400);">▲</span> <span id="lblMetricInc">आम्दानी</span></div>
+            <div class="metric-val" style="color:var(--green-400);" id="valHeroIncome">RM 0.00</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-title"><span style="color:var(--red-400);">▼</span> <span id="lblMetricExp">खर्च</span></div>
+            <div class="metric-val" style="color:var(--red-400);" id="valHeroExpense">RM 0.00</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-title"><span style="color:var(--gold-400);">⇄</span> <span id="lblMetricLoan">लोन खुद</span></div>
+            <div class="metric-val" style="color:var(--gold-400);" id="valHeroLoan">RM 0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="surface-card">
+        <div class="card-top-row">
+          <div class="card-heading"><span>🎯</span><span id="lblTargetTitle">मासिक टार्गेट खर्च</span></div>
+          <button class="edit-target-btn" onclick="openTargetEditor()"><span>✎</span><span id="btnEditTargetText">टार्गेट राख्नुहोस्</span></button>
+        </div>
+        <div class="target-numbers">
+          <div>
+            <span style="color:var(--text-secondary);font-size:.76rem;" id="lblThisMonthSpent">यो महिनाको खर्च:</span>
+            <div class="target-spent" id="valMonthSpent">RM 0.00</div>
+          </div>
+          <div style="text-align:right;">
+            <span style="color:var(--text-secondary);font-size:.76rem;" id="lblTargetLimit">टार्गेट सीमा:</span>
+            <div class="target-limit" id="valTargetLimit">RM 1,500.00</div>
+          </div>
+        </div>
+        <div class="progress-shell"><div id="targetProgressBar" class="progress-bar" style="width:0%;"></div></div>
+        <div class="target-status-row">
+          <span id="targetStatusMsg" style="color:var(--gold-400);">बाँकी बजेट: RM 1,500.00</span>
+          <span id="targetPctLabel" style="color:var(--orange-500);">0%</span>
+        </div>
+      </div>
+
+      <div class="surface-card">
+        <div class="card-top-row">
+          <div class="card-heading"><span>📊</span><span id="lblChartTitle">खर्च विश्लेषण (Donut Chart)</span></div>
+        </div>
+        <div class="donut-layout">
+          <div class="donut-wrap">
+            <svg id="expenseDonutSvg" width="124" height="124" viewBox="0 0 124 124"></svg>
+            <div class="donut-center-text">
+              <div class="donut-center-lbl" id="lblDonutCenter">कुल खर्च</div>
+              <div class="donut-center-val" id="valDonutCenter">RM 0</div>
+            </div>
+          </div>
+          <div id="donutLegend" class="legend-list"></div>
+        </div>
+
+        <!-- RIN: 4 totals (filled by script) -->
+        <div id="rinCard" class="loan-summary-pair"></div>
+
+        <div class="loan-summary-pair">
+          <div class="loan-mini-card">
+            <div class="loan-mini-lbl" id="lblLoanGivenBox">लिनुपर्ने (दिएको सापटी)</div>
+            <div class="loan-mini-val" style="color:var(--blue-400);" id="valLoanGiven">RM 0.00</div>
+          </div>
+          <div class="loan-mini-card">
+            <div class="loan-mini-lbl" id="lblLoanTakenBox">तिर्नुपर्ने (लिएको ऋण)</div>
+            <div class="loan-mini-val" style="color:var(--orange-500);" id="valLoanTaken">RM 0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="surface-card">
+        <div class="card-top-row">
+          <div class="card-heading"><span>⚡</span><span id="lblRecentHeading">पछिल्लो कारोबार</span></div>
+          <button class="edit-target-btn" onclick="switchTab('history')" id="btnViewAllHistory">सबै हेर्नुहोस् →</button>
+        </div>
+        <div id="recentTxContainer" class="tx-stack"></div>
+      </div>
+    </section>
+
+    <section id="panel-history" class="view-panel">
+      <input type="text" id="searchBox" class="search-input" oninput="renderApp()" placeholder="नाम, श्रेणी वा विवरण खोज्नुहोस्..." />
+      <div class="filter-scroll">
+        <button class="filter-pill active" data-filter="all" onclick="setHistoryFilter('all')" id="fltAll">सबै</button>
+        <button class="filter-pill" data-filter="expense" onclick="setHistoryFilter('expense')" id="fltExpense">खर्च</button>
+        <button class="filter-pill" data-filter="income" onclick="setHistoryFilter('income')" id="fltIncome">आम्दानी</button>
+        <button class="filter-pill" data-filter="loan_given" onclick="setHistoryFilter('loan_given')" id="fltLoanGiven">दिएको सापटी</button>
+        <button class="filter-pill" data-filter="loan_taken" onclick="setHistoryFilter('loan_taken')" id="fltLoanTaken">लिएको ऋण</button>
+        <button class="filter-pill" data-filter="repay" onclick="setHistoryFilter('repay')" id="fltRepay">फिर्ता</button>
+      </div>
+      <div id="fullTxContainer" class="tx-stack"></div>
+    </section>
+
+    <section id="panel-expenses" class="view-panel">
+      <div class="surface-card">
+        <div class="card-top-row"><div class="card-heading"><span>💸</span><span id="tabExpTitle"></span></div></div>
+        <div id="expSummary" class="loan-summary-pair" style="margin:0 0 12px;padding:0;border:none;"></div>
+        <div id="expTxContainer" class="tx-stack"></div>
+      </div>
+    </section>
+
+    <section id="panel-income" class="view-panel">
+      <div class="surface-card">
+        <div class="card-top-row"><div class="card-heading"><span>💼</span><span id="tabIncTitle"></span></div></div>
+        <div id="incSummary" class="loan-summary-pair" style="margin:0 0 12px;padding:0;border:none;"></div>
+        <div id="incTxContainer" class="tx-stack"></div>
+      </div>
+    </section>
+
+    <section id="panel-loans" class="view-panel">
+      <div class="surface-card">
+        <div class="card-top-row"><div class="card-heading"><span>🤝</span><span id="tabLoanTitle"></span></div></div>
+        <div id="loanSummary" class="loan-summary-pair" style="margin:0 0 12px;padding:0;border:none;"></div>
+        <div id="loanTxContainer" class="tx-stack"></div>
+      </div>
+    </section>
+
+    <section id="panel-settings" class="view-panel">
+      <div class="surface-card">
+        <div class="card-top-row">
+          <div class="card-heading"><span>⚙️</span> <span id="lblSettingsHeading">सेटिङ्स र डेटा सुरक्षा</span></div>
+        </div>
+
+        <div class="setting-item" id="installRowWrap">
+          <div>
+            <div style="font-weight:700;font-size:.9rem;" id="lblSetInstallRow">एप इन्स्टल गर्नुहोस्</div>
+            <div style="font-size:.75rem;color:var(--text-secondary);" id="lblSetInstallDesc">होम स्क्रिनमा राखेर इन्टरनेट बिना पनि चलाउनुहोस्</div>
+          </div>
+          <button class="action-chip-btn settle-btn" onclick="installApp()" id="btnInstall">इन्स्टल</button>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <div style="font-weight:700;font-size:.9rem;" id="lblSetThemeRow">नाइट मोड</div>
+            <div style="font-size:.75rem;color:var(--text-secondary);" id="lblSetThemeDesc">अँध्यारो (dark) थिम चालु/बन्द गर्नुहोस्</div>
+          </div>
+          <button class="action-chip-btn settle-btn" onclick="toggleTheme()" id="btnThemeSetup">बन्द</button>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <div style="font-weight:700;font-size:.9rem;" id="lblSetTargetRow">मासिक टार्गेट खर्च (RM)</div>
+            <div style="font-size:.75rem;color:var(--text-secondary);" id="lblSetTargetDesc">महिनाको अधिकतम खर्च सीमा तोक्नुहोस्</div>
+          </div>
+          <button class="action-chip-btn settle-btn" onclick="openTargetEditor()" id="btnSetTargetRow">सेट गर्नुहोस्</button>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <div style="font-weight:700;font-size:.9rem;" id="lblSetExportRow">Download JSON Backup</div>
+            <div style="font-size:.75rem;color:var(--text-secondary);" id="lblSetExportDesc">सबै हिसाब फाइलको रूपमा सुरक्षित राख्नुहोस्</div>
+          </div>
+          <button class="action-chip-btn settle-btn" onclick="downloadBackup()" id="btnExportJson">Download</button>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <div style="font-weight:700;font-size:.9rem;" id="lblSetImportRow">Restore JSON Backup</div>
+            <div style="font-size:.75rem;color:var(--text-secondary);" id="lblSetImportDesc">पुरानो ब्याकअप फाइलबाट डेटा फर्काउनुहोस्</div>
+          </div>
+          <label class="action-chip-btn" style="cursor:pointer;">
+            <span id="btnImportJson">Restore</span>
+            <input type="file" accept=".json" onchange="restoreBackup(event)" style="display:none;" />
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <div style="font-weight:700;font-size:.9rem;color:var(--red-400);" id="lblSetClearRow">सबै डेटा हटाउनुहोस्</div>
+            <div style="font-size:.75rem;color:var(--text-secondary);" id="lblSetClearDesc">सबै कारोबार स्थायी रूपमा खाली गर्नुहोस्</div>
+          </div>
+          <button class="action-chip-btn del-btn" onclick="promptClearAllData()" id="btnClearAllRow">Clear</button>
+        </div>
+      </div>
+
+      <div class="surface-card"><div id="manualRoot"></div></div>
+    </section>
+
+  </main>
+
+  <div id="entrySheetBackdrop" class="sheet-backdrop" onclick="if(event.target===this) closeEntrySheet()">
+    <div class="bottom-sheet">
+      <div class="sheet-header">
+        <div class="sheet-title" id="lblSheetTitle">⚡ छिटो हिसाब थप्नुहोस्</div>
+        <button class="close-sheet-btn" onclick="closeEntrySheet()">✕</button>
+      </div>
+
+      <div id="entryMenu" class="entry-menu"></div>
+      <div id="entryStep2" style="display:none;">
+      <div class="group-bar"><button type="button" class="back-btn" onclick="showEntryMenu()">←</button><span id="groupTitle"></span></div>
+      <div id="quickChipsGrid" class="quick-chips-grid"></div>
+
+      <form id="fastEntryForm" onsubmit="saveFastEntry(event)">
+        <div class="form-field">
+          <label class="field-lbl" id="lblFormAmount">रकम (RM)</label>
+          <div class="rm-input-box">
+            <span class="rm-tag">RM</span>
+            <input type="number" step="0.01" min="0.01" id="entryAmount" class="dark-input rm-input" placeholder="0.00" required />
+          </div>
+        </div>
+
+        <div class="form-field" id="personFieldWrap" style="display:none;">
+          <label class="field-lbl" id="lblFormPerson">व्यक्तिको नाम (Person Name)</label>
+          <input type="text" id="entryPerson" class="dark-input" placeholder="व्यक्तिको नाम लेख्नुहोस्..." />
+        </div>
+
+        <div class="two-col">
+          <div class="form-field">
+            <label class="field-lbl" id="lblFormDate">मिति</label>
+            <input type="date" id="entryDate" class="dark-input" required />
+          </div>
+          <div class="form-field">
+            <label class="field-lbl" id="lblFormNote">विवरण (Note)</label>
+            <input type="text" id="entryNote" class="dark-input" placeholder="ऐच्छिक..." />
+          </div>
+        </div>
+
+        <button type="submit" class="cta-gold-btn" id="btnSubmitEntry">सेभ गर्नुहोस् (Save)</button>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  
+  <nav class="bottom-dock">
+    <button class="dock-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span id="navLblDashboard">सारांश</span>
+    </button>
+    <button class="dock-tab" data-tab="expenses" onclick="switchTab('expenses')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      <span id="navLblExpenses">खर्च</span>
+    </button>
+    <button class="dock-tab" onclick="openEntrySheet()">
+      <div class="fab-plus">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <span id="navLblAdd" style="color:var(--gold-400);">थप्नुहोस्</span>
+    </button>
+    <button class="dock-tab" data-tab="income" onclick="switchTab('income')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+      <span id="navLblIncome">तलब</span>
+    </button>
+    <button class="dock-tab" data-tab="loans" onclick="switchTab('loans')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      <span id="navLblLoans">सापटी</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+const KEYS = { TXS:'pmp_v2_transactions', LANG:'pmp_v2_lang', TARGET:'pmp_v2_monthly_target', THEME:'pmp_v2_theme' };
+
+const QUICK_CATEGORIES = [
+  { id:'food', type:'expense', icon:'🍔', ne:'खाना', en:'Food', color:'#FF6B00' },
+  { id:'transport', type:'expense', icon:'🚌', ne:'यातायात', en:'Transport', color:'#F5B82E' },
+  { id:'shopping', type:'expense', icon:'🛒', ne:'किनमेल', en:'Shopping', color:'#FB923C' },
+  { id:'rent', type:'expense', icon:'🏠', ne:'कोठा भाडा', en:'Rent', color:'#FACC15' },
+  { id:'bills', type:'expense', icon:'📱', ne:'रिचार्ज/बिल', en:'Bills', color:'#EA580C' },
+  { id:'salary', type:'income', icon:'💼', ne:'तलब', en:'Salary', color:'#34D399' },
+  { id:'bonus', type:'income', icon:'💰', ne:'बोनस/OT', en:'Bonus/OT', color:'#10B981' },
+  { id:'loan_given', type:'loan', loanDir:'given', icon:'🤝', ne:'सापटी दिएको', en:'Loan Given', color:'#60A5FA' },
+  { id:'loan_taken', type:'loan', loanDir:'taken', icon:'📥', ne:'सापटी लिएको', en:'Loan Taken', color:'#F59E0B' },
+  { id:'repay_out', type:'repay', loanDir:'taken', icon:'📤', ne:'ऋण फिर्ता दिएको', en:'Repaid Loan', color:'#F59E0B' },
+  { id:'repay_in', type:'repay', loanDir:'given', icon:'📩', ne:'ऋण फिर्ता लिएको', en:'Got Repayment', color:'#60A5FA' }
+];
+
+let appState = {
+  transactions: [], lang: 'ne', monthlyTarget: 1500,
+  period: 'monthly', historyFilter: 'all', selectedCatId: 'food', currentTab: 'dashboard'
+};
+
+const LANG = {
+  ne: {
+    langSwitch:'नेपाली / EN', periodWeekly:'साप्ताहिक', periodMonthly:'मासिक', periodAll:'सबै',
+    heroBalance:'खुद बचत (Net Balance)', metricInc:'आम्दानी', metricExp:'खर्च', metricLoan:'लोन खुद',
+    targetTitle:'मासिक टार्गेट खर्च', editTargetBtn:'टार्गेट राख्नुहोस्', thisMonthSpent:'यो महिनाको खर्च:', targetLimit:'टार्गेट सीमा:',
+    targetModalTitle:'मासिक टार्गेट खर्च तोक्नुहोस्', targetModalBody:'यो महिनाको लागि अधिकतम खर्च सीमा (RM) लेख्नुहोस्:',
+    targetSavedToast:'मासिक टार्गेट खर्च अपडेट भयो!', remainingBudget:'बाँकी बजेट:',
+    nearLimitWarn:'सावधान! टार्गेट नजिक पुग्यो — बाँकी:', overLimitWarn:'चेतावनी! टार्गेट नाघ्यो — बढी खर्च:',
+    chartTitle:'खर्च विश्लेषण (Donut Chart)', donutCenter:'कुल खर्च', noChartData:'यो अवधिमा खर्च रेकर्ड छैन',
+    loanGivenBox:'लिनुपर्ने (दिएको सापटी)', loanTakenBox:'तिर्नुपर्ने (लिएको ऋण)',
+    recentHeading:'पछिल्लो कारोबार', viewAllBtn:'सबै हेर्नुहोस् →', searchPlaceholder:'नाम, श्रेणी वा विवरण खोज्नुहोस्...',
+    fltAll:'सबै', fltExpense:'खर्च', fltIncome:'आम्दानी', fltLoanGiven:'दिएको सापटी', fltLoanTaken:'लिएको ऋण', fltRepay:'फिर्ता',
+    installRow:'एप इन्स्टल गर्नुहोस्', installDesc:'होम स्क्रिनमा राखेर इन्टरनेट बिना पनि चलाउनुहोस्', installBtn:'इन्स्टल', installedMsg:'एप इन्स्टल भयो!',
+    installIosHint:'iPhone / iPad मा: Safari को Share (⬆️) बटन थिच्नुहोस् → «Add to Home Screen» छान्नुहोस्।',
+    installManualHint:'ब्राउजरको मेनु (⋮) खोल्नुहोस् → «Install app» वा «Add to Home screen» छान्नुहोस्। (यो एप https लिङ्कबाट खोलिएको हुनुपर्छ।)',
+    updateReady:'नयाँ संस्करण तयार भयो। एप फेरि खोल्नुहोस्।', setThemeRow:'नाइट मोड', setThemeDesc:'अँध्यारो (dark) थिम चालु/बन्द गर्नुहोस्', themeOn:'चालु ✓', themeOff:'बन्द', navExpenses:'खर्च', grpExpense:'खर्च', grpIncome:'तलब / आम्दानी', grpLoan:'सापटी', grpRepay:'फिर्ता (ऋण)', pickType:'के थप्ने हो? छान्नुहोस्',
+    navIncome:'तलब', navLoans:'सापटी', tabExpTitle:'सबै खर्च', tabIncTitle:'तलब र आम्दानी', tabLoanTitle:'सबै सापटी (लिएको / दिएको / फिर्ता)',
+    sheetTitle:'⚡ छिटो हिसाब थप्नुहोस्', formAmount:'रकम (RM)', formPerson:'व्यक्तिको नाम (Person Name)',
+    personPlaceholder:'साथी वा व्यक्तिको नाम लेख्नुहोस्...', formDate:'मिति', formNote:'विवरण (ऐच्छिक)',
+    notePlaceholder:'उदाहरण: खाना, कोठा भाडा...', submitEntry:'सेभ गर्नुहोस् (Save)',
+    navDashboard:'सारांश', navAdd:'थप्नुहोस्', navHistory:'विवरण',
+    settingsHeading:'सेटिङ्स र डेटा सुरक्षा', setTargetRow:'मासिक टार्गेट खर्च (RM)', setTargetDesc:'महिनाको अधिकतम खर्च सीमा तोक्नुहोस्',
+    btnSetTargetRow:'सेट गर्नुहोस्', setExportRow:'Download JSON Backup', setExportDesc:'सबै हिसाब फाइलको रूपमा सुरक्षित राख्नुहोस्',
+    setImportRow:'Restore JSON Backup', setImportDesc:'पुरानो ब्याकअप फाइलबाट डेटा फर्काउनुहोस्',
+    setClearRow:'सबै डेटा हटाउनुहोस्', setClearDesc:'सबै कारोबार स्थायी रूपमा खाली गर्नुहोस्',
+    emptyTx:'अहिलेसम्म कुनै कारोबार रेकर्ड गरिएको छैन।', savedToast:'हिसाब सुरक्षित गरियो!', deletedToast:'रेकर्ड हटाइयो!',
+    settledToast:'लोन चुक्ता (Paid) भयो!', settleChip:'चुक्ता भयो', settledTag:'चुक्ता भइसकेको', givenTag:'लिनुपर्ने', takenTag:'तिर्नुपर्ने',
+    waBtn:'WhatsApp', delTitle:'रेकर्ड हटाउने हो?', delBody:'के तपाईं यो हिसाब स्थायी रूपमा हटाउन चाहनुहुन्छ?',
+    clearTitle:'सबै डेटा हटाउने हो?', clearBody:'तपाईंको सबै आम्दानी, खर्च र लोन रेकर्ड स्थायी रूपमा मेटिनेछन्।'
+  },
+  en: {
+    langSwitch:'English / नेपाली', periodWeekly:'Weekly', periodMonthly:'Monthly', periodAll:'All Time',
+    heroBalance:'Net Balance', metricInc:'Income', metricExp:'Expense', metricLoan:'Net Loan',
+    targetTitle:'Monthly Target Expense', editTargetBtn:'Set Target', thisMonthSpent:'Spent This Month:', targetLimit:'Target Limit:',
+    targetModalTitle:'Set Monthly Target Expense', targetModalBody:'Enter your maximum monthly expense limit (in RM):',
+    targetSavedToast:'Monthly target updated!', remainingBudget:'Remaining Budget:',
+    nearLimitWarn:'Heads up! Approaching limit — Left:', overLimitWarn:'Alert! Target exceeded by:',
+    chartTitle:'Expense Breakdown (Donut)', donutCenter:'Total Spent', noChartData:'No expenses in this period',
+    loanGivenBox:'To Receive (Given)', loanTakenBox:'To Pay (Taken)',
+    recentHeading:'Recent Activity', viewAllBtn:'View All →', searchPlaceholder:'Search person, category, or note...',
+    fltAll:'All', fltExpense:'Expense', fltIncome:'Income', fltLoanGiven:'Loan Given', fltLoanTaken:'Loan Taken', fltRepay:'Repayments',
+    installRow:'Install App', installDesc:'Add to your home screen and use it offline', installBtn:'Install', installedMsg:'App installed!',
+    installIosHint:'On iPhone / iPad: tap the Share (⬆️) button in Safari, then choose «Add to Home Screen».',
+    installManualHint:'Open the browser menu (⋮) and choose «Install app» or «Add to Home screen». (The app must be opened from an https link.)',
+    updateReady:'A new version is ready. Please reopen the app.', setThemeRow:'Night Mode', setThemeDesc:'Switch the dark theme on or off', themeOn:'On ✓', themeOff:'Off', navExpenses:'Expenses', grpExpense:'Expenses', grpIncome:'Salary / Income', grpLoan:'Loans', grpRepay:'Repayments', pickType:'What do you want to add?',
+    navIncome:'Salary', navLoans:'Loans', tabExpTitle:'All Expenses', tabIncTitle:'Salary & Income', tabLoanTitle:'All Loans (Taken / Given / Repaid)',
+    sheetTitle:'⚡ Quick 2-Second Entry', formAmount:'Amount (RM)', formPerson:'Person Name',
+    personPlaceholder:'Enter person name...', formDate:'Date', formNote:'Note (Optional)',
+    notePlaceholder:'e.g., Lunch, Room rent...', submitEntry:'Save Record',
+    navDashboard:'Summary', navAdd:'Add New', navHistory:'History',
+    settingsHeading:'Settings & Data Backup', setTargetRow:'Monthly Target Expense (RM)', setTargetDesc:'Manually set your monthly spending cap',
+    btnSetTargetRow:'Set Limit', setExportRow:'Download JSON Backup', setExportDesc:'Save all records to a JSON file',
+    setImportRow:'Restore JSON Backup', setImportDesc:'Restore records from backup file',
+    setClearRow:'Clear All Data', setClearDesc:'Permanently delete all saved records',
+    emptyTx:'No transactions recorded yet.', savedToast:'Record saved!', deletedToast:'Record deleted!',
+    settledToast:'Loan marked as settled!', settleChip:'Settle', settledTag:'Settled', givenTag:'Receivable', takenTag:'Payable',
+    waBtn:'WhatsApp', delTitle:'Delete Record?', delBody:'Are you sure you want to permanently delete this entry?',
+    clearTitle:'Clear All Records?', clearBody:'All your income, expense, and loan entries will be permanently wiped.'
+  }
+};
+
+function tr(key) { return LANG[appState.lang][key] || key; }
+
+const MANUAL = {
+  ne: {
+    title: '📖 कसरी प्रयोग गर्ने',
+    intro: 'Pocket Mini Pro को पूरा गाइड। हेर्न चाहेको शीर्षक थिच्नुहोस्।',
+    items: [
+      { i: '📲', t: 'एप इन्स्टल (PWA)', b: [
+        'सेटिङमा «एप इन्स्टल गर्नुहोस्» थिच्नुहोस् (Android / Chrome ले सिधै सोध्छ)।',
+        'iPhone मा Safari को Share → «Add to Home Screen» छान्नुहोस्।',
+        'इन्स्टल गरेपछि होम स्क्रिनबाट आफ्नै एपजस्तो खुल्छ र इन्टरनेट बिना पनि चल्छ।',
+        'यसका लागि फाइलहरू https वेबसाइटमा राखिएको हुनुपर्छ (GitHub Pages, Netlify जस्ता)।',
+        'डेटा त्यही फोन र ब्राउजरमा बस्छ। नयाँ लिङ्कबाट खोल्दा ब्याकअप Restore गर्नुहोस्।' ] },
+      { i: '⚡', t: 'हिसाब कसरी थप्ने', b: [
+        'तलको ➕ बटन थिच्नुहोस्।',
+        'शीर्षक छान्नुहोस्: खर्च, तलब / आम्दानी, सापटी वा फिर्ता।',
+        'श्रेणी छान्नुहोस्, रकम लेख्नुहोस्, अनि «सेभ गर्नुहोस्» थिच्नुहोस्।',
+        'सापटी र फिर्तामा व्यक्तिको नाम चाहिन्छ। मिति र विवरण (ऐच्छिक) पनि राख्न सकिन्छ।',
+        'खर्च, तलब वा सापटी ट्याबमा हुँदा ➕ थिच्दा सिधै त्यही शीर्षक खुल्छ। ← ले शीर्षक सूचीमा फर्काउँछ।' ] },
+      { i: '📊', t: 'सारांश पेज', b: [
+        'साप्ताहिक, मासिक वा सबै छानेर अवधि बदल्नुहोस्।',
+        'खुद बचत = आम्दानी − खर्च। सापटी यसमा जोडिँदैन।',
+        'डोनट चार्टले कुन श्रेणीमा कति खर्च भयो देखाउँछ।',
+        '«सबै हेर्नुहोस्» ले खोज्न र फिल्टर गर्न मिल्ने पूरा सूची खोल्छ।' ] },
+      { i: '🎯', t: 'मासिक टार्गेट खर्च', b: [
+        '«टार्गेट राख्नुहोस्» थिचेर महिनाको अधिकतम खर्च (RM) तोक्नुहोस्।',
+        'खर्च ८०% पुगेपछि सावधानी देखिन्छ र टार्गेट नाघेपछि रातो चेतावनी आउँछ।',
+        'यो सधैं चालु महिनाको खर्चसँग जाँचिन्छ।' ] },
+      { i: '💸', t: 'खर्च र तलब ट्याब', b: [
+        'खर्च ट्याबमा सबै खर्च एकै ठाउँमा हुन्छ।',
+        'तलब ट्याबमा तलब र बोनस / OT जस्ता सबै आम्दानी हुन्छ।',
+        'दुवैको माथि «कुल» र «यो महिना» को जोड देखिन्छ।',
+        'कुनै रेकर्ड हटाउन ✕ थिच्नुहोस्, पहिले सोधिन्छ।' ] },
+      { i: '🤝', t: 'सापटी र ऋण फिर्ता', b: [
+        'सापटी दिएको: तपाईंले अरूलाई दिनुभएको पैसा (लिनुपर्ने)।',
+        'सापटी लिएको: तपाईंले अरूबाट लिनुभएको पैसा (तिर्नुपर्ने)।',
+        'ऋण फिर्ता दिएको: लिएको ऋणको पैसा तपाईंले तिर्दा।',
+        'ऋण फिर्ता लिएको: दिएको सापटीको पैसा तपाईंले फिर्ता पाउँदा।',
+        'सापटी ट्याबमा ४ कुल देखिन्छ: कुल ऋण लिएको, कुल ऋण दिएको, कुल फिर्ता दिएको, कुल फिर्ता लिएको।',
+        'तिर्नुपर्ने = लिएको − फिर्ता दिएको। लिनुपर्ने = दिएको − फिर्ता लिएको।',
+        '«चुक्ता भयो» बटनले पूरा सापटी एकैचोटि चुक्ता मान्छ। आंशिक तिरेको भए फिर्ता रेकर्ड गर्नुहोस्, दुवै नगर्नुहोस् (दोहोरो घट्छ)।',
+        '📲 WhatsApp बटनले सापटीको विवरण पठाउँछ।' ] },
+      { i: '🌙', t: 'नाइट मोड र भाषा', b: [
+        'माथिको 🌙 / ☀️ बटनले सेतो र अँध्यारो (नाइट) मोड बदल्छ। सेटिङमा पनि यही छ।',
+        'माथिको «नेपाली / EN» बटनले पूरा एपको भाषा बदल्छ।',
+        'तपाईंले रोजेको मोड र भाषा सम्झिन्छ।' ] },
+      { i: '💾', t: 'ब्याकअप र रिस्टोर', b: [
+        'डेटा यही फोन र ब्राउजरमा सुरक्षित हुन्छ।',
+        '«Download JSON Backup» ले सबै हिसाबको फाइल बनाउँछ।',
+        'नयाँ फोन वा ब्राउजरमा «Restore JSON Backup» बाट फाइल छानेर फर्काउनुहोस्।',
+        '«सबै डेटा हटाउनुहोस्» स्थायी हुन्छ, पहिले ब्याकअप लिनुहोस्।' ] },
+      { i: '✅', t: 'उपयोगी सुझाव', b: [
+        'हप्ताको एकपटक ब्याकअप डाउनलोड गर्नुहोस्।',
+        'सापटीमा एउटै व्यक्तिको नाम सधैं उही तरिकाले लेख्नुहोस्।',
+        'खर्च तुरुन्तै थप्ने बानी बसाल्नुहोस्, छिटो हुन्छ र बिर्सिँदैन।' ] }
+    ]
+  },
+  en: {
+    title: '📖 How to Use',
+    intro: 'The complete guide to Pocket Mini Pro. Tap a topic to open it.',
+    items: [
+      { i: '📲', t: 'Install the app (PWA)', b: [
+        'In Settings tap «Install App» (Android / Chrome asks you directly).',
+        'On iPhone, use Safari: Share → «Add to Home Screen».',
+        'Once installed, it opens from your home screen like a normal app and works offline.',
+        'The files must be hosted on an https website (such as GitHub Pages or Netlify).',
+        'Your data stays on that phone and browser. If you open a new link, use Restore from a backup.' ] },
+      { i: '⚡', t: 'How to add a record', b: [
+        'Tap the ➕ button at the bottom.',
+        'Pick a heading: Expenses, Salary / Income, Loans or Repayments.',
+        'Pick a category, enter the amount, then tap «Save Record».',
+        'Loans and repayments need a person name. You can also set a date and a note (optional).',
+        'When you are on the Expenses, Salary or Loans tab, ➕ opens that heading directly. The ← button goes back to the heading list.' ] },
+      { i: '📊', t: 'Summary page', b: [
+        'Switch the period with Weekly, Monthly or All Time.',
+        'Net Balance = Income − Expense. Loans are not included.',
+        'The donut chart shows which category your spending went to.',
+        '«View All» opens the full list with search and filters.' ] },
+      { i: '🎯', t: 'Monthly target expense', b: [
+        'Tap «Set Target» to set your maximum monthly spending (RM).',
+        'You get a warning at 80% and a red alert once the target is exceeded.',
+        'It always checks against the current month’s expenses.' ] },
+      { i: '💸', t: 'Expenses & Salary tabs', b: [
+        'The Expenses tab keeps all your expenses in one place.',
+        'The Salary tab keeps all income such as salary and bonus / OT.',
+        'Both show «Total» and «This Month» at the top.',
+        'To remove a record, tap ✕. You will be asked first.' ] },
+      { i: '🤝', t: 'Loans & repayments', b: [
+        'Loan Given: money you lent to someone (to receive).',
+        'Loan Taken: money you borrowed from someone (to pay).',
+        'Repaid Loan: when you pay back a loan you took.',
+        'Got Repayment: when someone pays back a loan you gave.',
+        'The Loans tab shows 4 totals: Total Loan Taken, Total Loan Given, Total Repaid by Me, Total Received Back.',
+        'To Pay = Taken − Repaid. To Receive = Given − Received Back.',
+        'The «Settle» button marks a whole loan as paid at once. If it is paid in parts, record repayments instead, not both (it would be counted twice).',
+        'The 📲 WhatsApp button sends the loan details.' ] },
+      { i: '🌙', t: 'Night mode & language', b: [
+        'The 🌙 / ☀️ button at the top switches between white and dark (night) mode. It is also in Settings.',
+        'The «English / नेपाली» button at the top changes the language of the whole app.',
+        'The app remembers your mode and language.' ] },
+      { i: '💾', t: 'Backup & restore', b: [
+        'Your data is stored on this phone and browser.',
+        '«Download JSON Backup» saves all your records to a file.',
+        'On a new phone or browser, use «Restore JSON Backup» and pick the file.',
+        '«Clear All Data» is permanent, so take a backup first.' ] },
+      { i: '✅', t: 'Handy tips', b: [
+        'Download a backup once a week.',
+        'Always write a person’s name the same way in loans.',
+        'Add expenses right away. It is quick and you will not forget.' ] }
+    ]
+  }
+};
+
+function setManualLang(l) {
+  appState.manualLang = l;
+  renderManual();
+}
+
+function renderManual() {
+  const l = appState.manualLang === 'en' ? 'en' : 'ne';
+  const M = MANUAL[l];
+  document.getElementById('manualRoot').innerHTML =
+    `<div class="card-top-row"><div class="card-heading"><span>${M.title}</span></div>
+      <div class="manual-toggle"><button class="${l === 'ne' ? 'active' : ''}" onclick="setManualLang('ne')">नेपाली</button><button class="${l === 'en' ? 'active' : ''}" onclick="setManualLang('en')">English</button></div></div>
+     <div class="manual-intro">${M.intro}</div>` +
+    M.items.map(it => `<details class="manual-item"><summary><span>${it.i}</span><span>${it.t}</span></summary><div class="manual-body"><ul>${it.b.map(x => `<li>${x}</li>`).join('')}</ul></div></details>`).join('');
+}
+
+function currentTheme() { return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'; }
+
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem(KEYS.THEME, t); } catch (e) {}
+  updateThemeUI();
+}
+
+function toggleTheme() { applyTheme(currentTheme() === 'dark' ? 'light' : 'dark'); }
+
+function updateThemeUI() {
+  const dark = currentTheme() === 'dark';
+  document.querySelectorAll('.theme-btn').forEach(b => { b.textContent = dark ? '☀️' : '🌙'; });
+  const meta = document.getElementById('metaTheme');
+  if (meta) meta.content = dark ? '#0A0A0D' : '#FFFFFF';
+  const set = (id, key) => { const el = document.getElementById(id); if (el) el.textContent = tr(key); };
+  set('lblSetThemeRow', 'setThemeRow'); set('lblSetThemeDesc', 'setThemeDesc');
+  set('btnThemeSetup', dark ? 'themeOn' : 'themeOff');
+}
+
+function init() {
+  try {
+    const rawTxs = localStorage.getItem(KEYS.TXS);
+    appState.transactions = rawTxs ? JSON.parse(rawTxs) : [];
+  } catch (e) { appState.transactions = []; }
+
+  appState.lang = localStorage.getItem(KEYS.LANG) || 'ne';
+  appState.manualLang = appState.lang;
+
+  const savedTarget = parseFloat(localStorage.getItem(KEYS.TARGET));
+  appState.monthlyTarget = (!isNaN(savedTarget) && savedTarget >= 0) ? savedTarget : 1500;
+
+  document.getElementById('entryDate').value = new Date().toISOString().split('T')[0];
+
+  renderQuickChips();
+  applyTranslations();
+  renderApp();
+}
+
+function toggleLanguage() {
+  appState.lang = appState.lang === 'ne' ? 'en' : 'ne';
+  appState.manualLang = appState.lang;
+  localStorage.setItem(KEYS.LANG, appState.lang);
+  renderQuickChips();
+  applyTranslations();
+  renderApp();
+}
+
+function applyTranslations() {
+  const set = (id, key) => { const el = document.getElementById(id); if (el) el.textContent = tr(key); };
+  set('topLangText','langSwitch');
+  set('btnPeriodWeekly','periodWeekly'); set('btnPeriodMonthly','periodMonthly'); set('btnPeriodAll','periodAll');
+  set('lblHeroBalance','heroBalance'); set('lblMetricInc','metricInc'); set('lblMetricExp','metricExp'); set('lblMetricLoan','metricLoan');
+  set('lblTargetTitle','targetTitle'); set('btnEditTargetText','editTargetBtn'); set('lblThisMonthSpent','thisMonthSpent'); set('lblTargetLimit','targetLimit');
+  set('lblChartTitle','chartTitle'); set('lblDonutCenter','donutCenter'); set('lblLoanGivenBox','loanGivenBox'); set('lblLoanTakenBox','loanTakenBox');
+  set('lblRecentHeading','recentHeading'); set('btnViewAllHistory','viewAllBtn');
+  document.getElementById('searchBox').placeholder = tr('searchPlaceholder');
+  set('fltAll','fltAll'); set('fltExpense','fltExpense'); set('fltIncome','fltIncome'); set('fltLoanGiven','fltLoanGiven'); set('fltLoanTaken','fltLoanTaken'); set('fltRepay','fltRepay');
+  set('lblSheetTitle','sheetTitle'); set('lblFormAmount','formAmount'); set('lblFormPerson','formPerson');
+  document.getElementById('entryPerson').placeholder = tr('personPlaceholder');
+  set('lblFormDate','formDate'); set('lblFormNote','formNote');
+  document.getElementById('entryNote').placeholder = tr('notePlaceholder');
+  set('btnSubmitEntry','submitEntry');
+  set('navLblDashboard','navDashboard'); set('navLblAdd','navAdd');
+  set('lblSettingsHeading','settingsHeading'); set('lblSetTargetRow','setTargetRow'); set('lblSetTargetDesc','setTargetDesc'); set('btnSetTargetRow','btnSetTargetRow');
+  set('lblSetExportRow','setExportRow'); set('lblSetExportDesc','setExportDesc');
+  set('lblSetImportRow','setImportRow'); set('lblSetImportDesc','setImportDesc');
+  set('lblSetClearRow','setClearRow'); set('lblSetClearDesc','setClearDesc');
+  set('navLblExpenses','navExpenses'); set('navLblIncome','navIncome'); set('navLblLoans','navLoans');
+  set('tabExpTitle','tabExpTitle'); set('tabIncTitle','tabIncTitle'); set('tabLoanTitle','tabLoanTitle');
+  renderManual();
+  updateInstallUI();
+  updateThemeUI();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function openTargetEditor() {
+  openDialog(tr('targetModalTitle'), tr('targetModalBody'), true, (inputVal) => {
+    const num = parseFloat(inputVal);
+    if (!isNaN(num) && num >= 0) {
+      appState.monthlyTarget = num;
+      localStorage.setItem(KEYS.TARGET, String(num));
+      renderApp();
+      showToast(tr('targetSavedToast'));
+    }
+  }, appState.monthlyTarget);
+}
+
+const ENTRY_GROUPS = [
+  { type: 'expense', icon: '💸', key: 'grpExpense' },
+  { type: 'income', icon: '💼', key: 'grpIncome' },
+  { type: 'loan', icon: '🤝', key: 'grpLoan' },
+  { type: 'repay', icon: '🔁', key: 'grpRepay' }
+];
+
+function renderEntryMenu() {
+  document.getElementById('entryMenu').innerHTML =
+    `<div class="entry-hint">${tr('pickType')}</div>` +
+    ENTRY_GROUPS.map(g => {
+      const icons = QUICK_CATEGORIES.filter(c => c.type === g.type).map(c => c.icon).join(' ');
+      return `<div class="entry-card" onclick="openEntryGroup('${g.type}')"><div class="entry-card-icon">${g.icon}</div><div class="entry-card-title">${tr(g.key)}</div><div class="entry-card-sub">${icons}</div></div>`;
+    }).join('');
+}
+
+function showEntryMenu() {
+  appState.entryGroup = null;
+  document.getElementById('entryStep2').style.display = 'none';
+  document.getElementById('entryMenu').style.display = 'grid';
+}
+
+function openEntryGroup(type) {
+  appState.entryGroup = type;
+  const cur = QUICK_CATEGORIES.find(c => c.id === appState.selectedCatId);
+  if (!cur || cur.type !== type) {
+    const first = QUICK_CATEGORIES.find(c => c.type === type);
+    if (first) appState.selectedCatId = first.id;
+  }
+  document.getElementById('entryMenu').style.display = 'none';
+  document.getElementById('entryStep2').style.display = 'block';
+  renderQuickChips();
+  setTimeout(() => document.getElementById('entryAmount').focus(), 120);
+}
+
+function renderQuickChips() {
+  const grid = document.getElementById('quickChipsGrid');
+  const g = ENTRY_GROUPS.find(x => x.type === appState.entryGroup);
+  renderEntryMenu();
+  if (g) document.getElementById('groupTitle').textContent = `${g.icon} ${tr(g.key)}`;
+  grid.innerHTML = QUICK_CATEGORIES.filter(c => !g || c.type === g.type).map(cat => {
+    const label = appState.lang === 'en' ? cat.en : cat.ne;
+    const isSel = cat.id === appState.selectedCatId;
+    return `<div class="cat-chip ${isSel ? 'selected' : ''}" onclick="selectQuickCategory('${cat.id}')"><div class="cat-chip-icon">${cat.icon}</div><div class="cat-chip-text">${label}</div></div>`;
+  }).join('');
+  updatePersonFieldVisibility();
+}
+
+function selectQuickCategory(catId) {
+  appState.selectedCatId = catId;
+  renderQuickChips();
+  document.getElementById('entryAmount').focus();
+}
+
+function updatePersonFieldVisibility() {
+  const cat = QUICK_CATEGORIES.find(c => c.id === appState.selectedCatId);
+  const needsPerson = cat && (cat.type === 'loan' || cat.type === 'repay');
+  document.getElementById('personFieldWrap').style.display = needsPerson ? 'block' : 'none';
+  document.getElementById('entryPerson').required = !!needsPerson;
+}
+
+function openEntrySheet() {
+  const tabMap = { expenses: 'expense', income: 'income', loans: 'loan' };
+  const g = tabMap[appState.currentTab];
+  document.getElementById('entrySheetBackdrop').classList.add('open');
+  if (g) openEntryGroup(g); else { showEntryMenu(); renderQuickChips(); }
+}
+
+function closeEntrySheet() {
+  document.getElementById('entrySheetBackdrop').classList.remove('open');
+}
+
+function saveFastEntry(e) {
+  e.preventDefault();
+  const amount = parseFloat(document.getElementById('entryAmount').value);
+  if (isNaN(amount) || amount <= 0) return;
+
+  const cat = QUICK_CATEGORIES.find(c => c.id === appState.selectedCatId) || QUICK_CATEGORIES[0];
+  const person = document.getElementById('entryPerson').value.trim();
+  const date = document.getElementById('entryDate').value;
+  const note = document.getElementById('entryNote').value.trim();
+
+  const record = {
+    id: 'tx_' + Date.now(),
+    catId: cat.id,
+    type: cat.type,
+    loanDir: cat.loanDir || null,
+    amount: amount,
+    person: (cat.type === 'loan' || cat.type === 'repay') ? person : '',
+    date: date,
+    note: note,
+    settled: false
+  };
+
+  appState.transactions.unshift(record);
+  persistTransactions();
+
+  document.getElementById('entryAmount').value = '';
+  document.getElementById('entryPerson').value = '';
+  document.getElementById('entryNote').value = '';
+
+  closeEntrySheet();
+  renderApp();
+  showToast(tr('savedToast'));
+}
+
+function toggleSettleLoan(id) {
+  const item = appState.transactions.find(t => t.id === id);
+  if (item && item.type === 'loan') {
+    item.settled = !item.settled;
+    persistTransactions();
+    renderApp();
+    if (item.settled) showToast(tr('settledToast'));
+  }
+}
+
+function shareLoanWhatsApp(id) {
+  const item = appState.transactions.find(t => t.id === id);
+  if (!item) return;
+  const amtStr = 'RM ' + formatMoney(item.amount);
+  const nameStr = item.person || 'Friend';
+  let msg = '';
+  if (appState.lang === 'ne') {
+    const typeStr = item.loanDir === 'given' ? 'दिएको सापटी (लिनुपर्ने)' : 'लिएको सापटी (तिर्नुपर्ने)';
+    const statusStr = item.settled ? 'चुक्ता भइसकेको (Settled)' : 'बाँकी (Pending)';
+    msg = `*Pocket Mini Pro - सापटी विवरण*\n👤 नाम: ${nameStr}\n💰 रकम: ${amtStr}\n📌 प्रकार: ${typeStr}\n📅 मिति: ${item.date}\n✅ अवस्था: ${statusStr}${item.note ? '\n📝 विवरण: ' + item.note : ''}`;
+  } else {
+    const typeStr = item.loanDir === 'given' ? 'Loan Given (Receivable)' : 'Loan Taken (Payable)';
+    const statusStr = item.settled ? 'Settled / Paid' : 'Pending';
+    msg = `*Pocket Mini Pro - Loan Receipt*\n👤 Name: ${nameStr}\n💰 Amount: ${amtStr}\n📌 Type: ${typeStr}\n📅 Date: ${item.date}\n✅ Status: ${statusStr}${item.note ? '\n📝 Note: ' + item.note : ''}`;
+  }
+  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function promptDeleteTx(id) {
+  openDialog(tr('delTitle'), tr('delBody'), false, () => {
+    appState.transactions = appState.transactions.filter(t => t.id !== id);
+    persistTransactions();
+    renderApp();
+    showToast(tr('deletedToast'));
+  });
+}
+
+function persistTransactions() {
+  localStorage.setItem(KEYS.TXS, JSON.stringify(appState.transactions));
+}
+
+function switchTab(tab) {
+  appState.currentTab = tab;
+  document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.querySelectorAll('.dock-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
+}
+
+function setPeriod(period) {
+  appState.period = period;
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.toggle('active', b.dataset.period === period));
+  renderApp();
+}
+
+function setHistoryFilter(filter) {
+  appState.historyFilter = filter;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+  renderApp();
+}
+
+function getTransactionsForPeriod(period) {
+  if (period === 'all') return appState.transactions;
+  const now = new Date();
+  now.setHours(23, 59, 59, 999);
+  if (period === 'weekly') {
+    const weekAgo = new Date();
+    weekAgo.setDate(now.getDate() - 7);
+    weekAgo.setHours(0, 0, 0, 0);
+    return appState.transactions.filter(tx => {
+      const d = new Date(tx.date + 'T12:00:00');
+      return d >= weekAgo && d <= now;
+    });
+  }
+  const m = now.getMonth();
+  const y = now.getFullYear();
+  return appState.transactions.filter(tx => {
+    const d = new Date(tx.date + 'T12:00:00');
+    return d.getMonth() === m && d.getFullYear() === y;
+  });
+}
+
+function formatMoney(val) {
+  return Number(val || 0).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+/* ---- Rin (loan) totals: all-time, not tied to the period switcher ---- */
+function computeRinTotals() {
+  let taken = 0, given = 0, paidBack = 0, gotBack = 0, settledTaken = 0, settledGiven = 0;
+  appState.transactions.forEach(t => {
+    if (t.type === 'loan') {
+      if (t.loanDir === 'given') { given += t.amount; if (t.settled) settledGiven += t.amount; }
+      else { taken += t.amount; if (t.settled) settledTaken += t.amount; }
+    } else if (t.type === 'repay') {
+      if (t.loanDir === 'taken') paidBack += t.amount; else gotBack += t.amount;
+    }
+  });
+  return {
+    taken, given, paidBack, gotBack,
+    toPay: Math.max(0, taken - settledTaken - paidBack),
+    toReceive: Math.max(0, given - settledGiven - gotBack)
+  };
+}
+
+function renderRinCard() {
+  const r = computeRinTotals();
+  const en = appState.lang === 'en';
+  const box = (label, v, color) => `<div class="loan-mini-card"><div class="loan-mini-lbl">${label}</div><div class="loan-mini-val" style="color:${color};">RM ${formatMoney(v)}</div></div>`;
+  document.getElementById('rinCard').innerHTML =
+    box(en ? 'Total Loan Taken' : 'कुल ऋण लिएको', r.taken, 'var(--orange-500)') +
+    box(en ? 'Total Loan Given' : 'कुल ऋण दिएको', r.given, 'var(--blue-400)') +
+    box(en ? 'Total Repaid by Me' : 'कुल फिर्ता दिएको', r.paidBack, 'var(--orange-500)') +
+    box(en ? 'Total Received Back' : 'कुल फिर्ता लिएको', r.gotBack, 'var(--blue-400)');
+  document.getElementById('valLoanTaken').textContent = 'RM ' + formatMoney(r.toPay);
+  document.getElementById('valLoanGiven').textContent = 'RM ' + formatMoney(r.toReceive);
+  document.getElementById('valHeroLoan').textContent = 'RM ' + formatMoney(r.toReceive - r.toPay);
+}
+
+function renderApp() {
+  const periodList = getTransactionsForPeriod(appState.period);
+  let totalIncome = 0, totalExpense = 0;
+  periodList.forEach(tx => {
+    if (tx.type === 'income') totalIncome += tx.amount;
+    else if (tx.type === 'expense') totalExpense += tx.amount;
+  });
+
+  document.getElementById('valNetBalance').textContent = formatMoney(totalIncome - totalExpense);
+  document.getElementById('valHeroIncome').textContent = 'RM ' + formatMoney(totalIncome);
+  document.getElementById('valHeroExpense').textContent = 'RM ' + formatMoney(totalExpense);
+
+  renderRinCard();
+
+  const currentMonthSpent = getTransactionsForPeriod('monthly')
+    .filter(t => t.type === 'expense')
+    .reduce((sum, t) => sum + t.amount, 0);
+  renderMonthlyTargetCard(currentMonthSpent);
+  renderExpenseDonutChart(periodList, totalExpense);
+  renderTransactionStack('recentTxContainer', periodList.slice(0, 5));
+
+  const query = document.getElementById('searchBox').value.toLowerCase().trim();
+  const filteredHistory = appState.transactions.filter(tx => {
+    const f = appState.historyFilter;
+    if (f === 'expense' && tx.type !== 'expense') return false;
+    if (f === 'income' && tx.type !== 'income') return false;
+    if (f === 'loan_given' && !(tx.type === 'loan' && tx.loanDir === 'given')) return false;
+    if (f === 'loan_taken' && !(tx.type === 'loan' && tx.loanDir === 'taken')) return false;
+    if (f === 'repay' && tx.type !== 'repay') return false;
+    if (!query) return true;
+    const cat = QUICK_CATEGORIES.find(c => c.id === tx.catId);
+    const catTitle = cat ? (cat.ne + ' ' + cat.en).toLowerCase() : '';
+    return catTitle.includes(query) || (tx.person || '').toLowerCase().includes(query) || (tx.note || '').toLowerCase().includes(query) || tx.date.includes(query);
+  });
+  renderTransactionStack('fullTxContainer', filteredHistory);
+  renderTabPanels();
+}
+
+function renderTabPanels() {
+  const now = new Date(), m = now.getMonth(), y = now.getFullYear();
+  const inMonth = t => { const d = new Date(t.date + 'T12:00:00'); return d.getMonth() === m && d.getFullYear() === y; };
+  const sum = a => a.reduce((s, t) => s + t.amount, 0);
+  const en = appState.lang === 'en';
+  const box = (label, v, color) => `<div class="loan-mini-card"><div class="loan-mini-lbl">${label}</div><div class="loan-mini-val" style="color:${color};">RM ${formatMoney(v)}</div></div>`;
+  const exp = appState.transactions.filter(t => t.type === 'expense');
+  const inc = appState.transactions.filter(t => t.type === 'income');
+  const lns = appState.transactions.filter(t => t.type === 'loan' || t.type === 'repay');
+  const r = computeRinTotals();
+
+  document.getElementById('expSummary').innerHTML =
+    box(en ? 'Total Expense' : 'कुल खर्च', sum(exp), 'var(--red-400)') +
+    box(en ? 'This Month' : 'यो महिना', sum(exp.filter(inMonth)), 'var(--orange-500)');
+  document.getElementById('incSummary').innerHTML =
+    box(en ? 'Total Income' : 'कुल आम्दानी', sum(inc), 'var(--green-400)') +
+    box(en ? 'This Month' : 'यो महिना', sum(inc.filter(inMonth)), 'var(--gold-400)');
+  document.getElementById('loanSummary').innerHTML =
+    box(en ? 'Total Loan Taken' : 'कुल ऋण लिएको', r.taken, 'var(--orange-500)') +
+    box(en ? 'Total Loan Given' : 'कुल ऋण दिएको', r.given, 'var(--blue-400)') +
+    box(en ? 'Total Repaid by Me' : 'कुल फिर्ता दिएको', r.paidBack, 'var(--orange-500)') +
+    box(en ? 'Total Received Back' : 'कुल फिर्ता लिएको', r.gotBack, 'var(--blue-400)') +
+    box(tr('loanTakenBox'), r.toPay, 'var(--orange-500)') +
+    box(tr('loanGivenBox'), r.toReceive, 'var(--blue-400)');
+
+  renderTransactionStack('expTxContainer', exp);
+  renderTransactionStack('incTxContainer', inc);
+  renderTransactionStack('loanTxContainer', lns);
+}
+
+function renderMonthlyTargetCard(spent) {
+  const target = appState.monthlyTarget;
+  document.getElementById('valMonthSpent').textContent = 'RM ' + formatMoney(spent);
+  document.getElementById('valTargetLimit').textContent = 'RM ' + formatMoney(target);
+
+  const barEl = document.getElementById('targetProgressBar');
+  const statusEl = document.getElementById('targetStatusMsg');
+  const pctEl = document.getElementById('targetPctLabel');
+
+  if (target <= 0) {
+    barEl.style.width = '0%';
+    barEl.className = 'progress-bar';
+    statusEl.textContent = tr('editTargetBtn');
+    statusEl.style.color = 'var(--gold-400)';
+    pctEl.textContent = '0%';
+    return;
+  }
+
+  const rawPct = (spent / target) * 100;
+  barEl.style.width = Math.min(100, Math.round(rawPct)) + '%';
+  pctEl.textContent = Math.round(rawPct) + '%';
+  barEl.classList.remove('warning', 'exceeded');
+
+  if (spent > target) {
+    barEl.classList.add('exceeded');
+    statusEl.textContent = `${tr('overLimitWarn')} RM ${formatMoney(spent - target)}`;
+    statusEl.style.color = 'var(--red-400)';
+    pctEl.style.color = 'var(--red-400)';
+  } else if (rawPct >= 80) {
+    barEl.classList.add('warning');
+    statusEl.textContent = `${tr('nearLimitWarn')} RM ${formatMoney(target - spent)}`;
+    statusEl.style.color = 'var(--orange-500)';
+    pctEl.style.color = 'var(--orange-500)';
+  } else {
+    statusEl.textContent = `${tr('remainingBudget')} RM ${formatMoney(target - spent)}`;
+    statusEl.style.color = 'var(--gold-400)';
+    pctEl.style.color = 'var(--gold-400)';
+  }
+}
+
+function renderExpenseDonutChart(periodList, totalExpense) {
+  const svg = document.getElementById('expenseDonutSvg');
+  const legend = document.getElementById('donutLegend');
+  document.getElementById('valDonutCenter').textContent = 'RM ' + Math.round(totalExpense);
+
+  const radius = 46;
+  const circumference = 2 * Math.PI * radius;
+
+  if (totalExpense <= 0) {
+    svg.innerHTML = `<circle cx="62" cy="62" r="${radius}" fill="none" style="stroke:var(--donut-empty)" stroke-width="16" />`;
+    legend.innerHTML = `<div style="font-size:.78rem;color:var(--text-muted);">${tr('noChartData')}</div>`;
+    return;
+  }
+
+  const map = {};
+  periodList.filter(t => t.type === 'expense').forEach(tx => { map[tx.catId] = (map[tx.catId] || 0) + tx.amount; });
+
+  const entries = Object.keys(map).map(catId => {
+    const catObj = QUICK_CATEGORIES.find(c => c.id === catId) || { icon:'💸', ne:'खर्च', en:'Expense', color:'#FF6B00' };
+    return {
+      catId,
+      label: `${catObj.icon} ${appState.lang === 'en' ? catObj.en : catObj.ne}`,
+      color: catObj.color,
+      amount: map[catId],
+      pct: (map[catId] / totalExpense) * 100
+    };
+  }).sort((a, b) => b.amount - a.amount);
+
+  let offset = 0;
+  svg.innerHTML = entries.map(seg => {
+    const dash = (seg.pct / 100) * circumference;
+    const c = `<circle cx="62" cy="62" r="${radius}" fill="none" stroke="${seg.color}" stroke-width="16" stroke-dasharray="${dash} ${circumference - dash}" stroke-dashoffset="${-offset}" transform="rotate(-90 62 62)" />`;
+    offset += dash;
+    return c;
+  }).join('');
+
+  legend.innerHTML = entries.slice(0, 4).map(seg => `
+    <div class="legend-item">
+      <div class="legend-left"><span class="legend-swatch" style="background:${seg.color};"></span><span class="legend-name">${seg.label}</span></div>
+      <span class="legend-pct">${Math.round(seg.pct)}%</span>
+    </div>`).join('');
+}
+
+function renderTransactionStack(containerId, list) {
+  const box = document.getElementById(containerId);
+  if (!list || list.length === 0) {
+    box.innerHTML = `<div class="empty-msg">${tr('emptyTx')}</div>`;
+    return;
+  }
+
+  box.innerHTML = list.map(tx => {
+    const cat = QUICK_CATEGORIES.find(c => c.id === tx.catId) || { icon:'💰', ne:'कारोबार', en:'Record' };
+    const catLabel = appState.lang === 'en' ? cat.en : cat.ne;
+    const title = (tx.type === 'loan' || tx.type === 'repay') && tx.person ? `${tx.person} (${catLabel})` : catLabel;
+
+    let amtColor = 'var(--red-400)';
+    let sign = '-';
+    let badgeHtml = '';
+    let extraBtns = '';
+
+    if (tx.type === 'income') {
+      amtColor = 'var(--green-400)';
+      sign = '+';
+    } else if (tx.type === 'repay') {
+      // repay_out = money I paid out (red -), repay_in = money I received (green +)
+      const out = tx.loanDir === 'taken';
+      amtColor = out ? 'var(--orange-500)' : 'var(--green-400)';
+      sign = out ? '↗ ' : '↙ ';
+      badgeHtml = `<span class="pill-tag" style="${out ? 'background:rgba(255,107,0,.16);color:var(--orange-500);' : 'background:var(--green-bg);color:var(--green-400);'}">${out ? (appState.lang === 'en' ? 'Repaid' : 'फिर्ता दिएको') : (appState.lang === 'en' ? 'Received' : 'फिर्ता लिएको')}</span>`;
+    } else if (tx.type === 'loan') {
+      amtColor = tx.loanDir === 'given' ? 'var(--blue-400)' : 'var(--orange-500)';
+      sign = tx.loanDir === 'given' ? '↗ ' : '↙ ';
+      const tagText = tx.settled ? tr('settledTag') : (tx.loanDir === 'given' ? tr('givenTag') : tr('takenTag'));
+      const tagStyle = tx.settled
+        ? 'background:rgb(var(--ink) / .08);color:var(--text-secondary);'
+        : (tx.loanDir === 'given' ? 'background:var(--blue-bg);color:var(--blue-400);' : 'background:rgba(255,107,0,.16);color:var(--orange-500);');
+      badgeHtml = `<span class="pill-tag" style="${tagStyle}">${tagText}</span>`;
+      extraBtns += `<button class="action-chip-btn wa-btn" onclick="shareLoanWhatsApp('${tx.id}')"><span>📲</span> ${tr('waBtn')}</button>`;
+      if (!tx.settled) {
+        extraBtns += `<button class="action-chip-btn settle-btn" onclick="toggleSettleLoan('${tx.id}')">${tr('settleChip')}</button>`;
+      }
+    }
+
+    const noteText = tx.type === 'repay' ? tx.note : tx.note;
+    return `
+      <div class="tx-row ${tx.settled ? 'settled' : ''}">
+        <div class="tx-left">
+          <div class="tx-emoji-box">${cat.icon}</div>
+          <div class="tx-details">
+            <div class="tx-title">${escapeHtml(title)}</div>
+            <div class="tx-sub">
+              <span>${tx.date}</span>
+              ${badgeHtml}
+              ${noteText ? `<span>• ${escapeHtml(noteText)}</span>` : ''}
+            </div>
+          </div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt" style="color:${amtColor};">${sign}RM ${formatMoney(tx.amount)}</div>
+          <div class="tx-btn-row">
+            ${extraBtns}
+            <button class="action-chip-btn del-btn" onclick="promptDeleteTx('${tx.id}')">✕</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function downloadBackup() {
+  const data = { app:'Pocket Mini Pro v2', exportedAt:new Date().toISOString(), monthlyTarget:appState.monthlyTarget, transactions:appState.transactions };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `pocket-mini-pro-v2-${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+  showToast('JSON Backup Downloaded!');
+}
+
+function restoreBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (parsed && Array.isArray(parsed.transactions)) {
+        appState.transactions = parsed.transactions;
+        if (typeof parsed.monthlyTarget === 'number') {
+          appState.monthlyTarget = parsed.monthlyTarget;
+          localStorage.setItem(KEYS.TARGET, String(parsed.monthlyTarget));
+        }
+        persistTransactions();
+        renderApp();
+        showToast('Backup Restored!');
+      } else { showToast('Invalid JSON file'); }
+    } catch (err) { showToast('Error reading backup'); }
+  };
+  reader.readAsText(file);
+}
+
+function promptClearAllData() {
+  openDialog(tr('clearTitle'), tr('clearBody'), false, () => {
+    appState.transactions = [];
+    persistTransactions();
+    renderApp();
+    showToast(tr('deletedToast'));
+  });
+}
+
+let activeDialogAction = null;
+
+function openDialog(title, body, withInput, onConfirm, defaultVal = '', textMode = '') {
+  document.getElementById('dialogTitle').textContent = title;
+  document.getElementById('dialogText').textContent = body;
+  const inputWrap = document.getElementById('dialogInputWrap');
+  const numInput = document.getElementById('dialogNumberInput');
+  const textWrap = document.getElementById('dialogTextWrap');
+  const txtInput = document.getElementById('dialogTextInput');
+  inputWrap.style.display = (withInput && !textMode) ? 'block' : 'none';
+  textWrap.style.display = textMode ? 'block' : 'none';
+  if (withInput && !textMode) { numInput.value = defaultVal; setTimeout(() => numInput.focus(), 100); }
+  if (textMode) { txtInput.value = defaultVal; txtInput.placeholder = textMode; setTimeout(() => txtInput.focus(), 100); }
+  activeDialogAction = onConfirm;
+  document.getElementById('dialogBackdrop').classList.add('show');
+}
+
+function closeDialog() {
+  document.getElementById('dialogBackdrop').classList.remove('show');
+  activeDialogAction = null;
+}
+
+document.getElementById('dialogOkBtn').addEventListener('click', () => {
+  const textMode = document.getElementById('dialogTextWrap').style.display === 'block';
+  const val = textMode ? document.getElementById('dialogTextInput').value : document.getElementById('dialogNumberInput').value;
+  const action = activeDialogAction;
+  closeDialog();
+  if (typeof action === 'function') action(val);
+});
+
+function showToast(text) {
+  const banner = document.getElementById('toastBanner');
+  banner.textContent = text;
+  banner.classList.add('show');
+  setTimeout(() => banner.classList.remove('show'), 2500);
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* ---------- PWA: install button + offline support ---------- */
+let deferredInstall = null;
+
+function isStandalone() {
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+}
+
+function updateInstallUI() {
+  const wrap = document.getElementById('installRowWrap');
+  if (wrap) wrap.style.display = isStandalone() ? 'none' : 'flex';
+  const set = (id, key) => { const el = document.getElementById(id); if (el) el.textContent = tr(key); };
+  set('lblSetInstallRow', 'installRow'); set('lblSetInstallDesc', 'installDesc'); set('btnInstall', 'installBtn');
+}
+
+async function installApp() {
+  if (deferredInstall) {
+    deferredInstall.prompt();
+    try { await deferredInstall.userChoice; } catch (e) {}
+    deferredInstall = null;
+    return;
+  }
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  openDialog(tr('installRow'), ios ? tr('installIosHint') : tr('installManualHint'), false, null);
+}
+
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredInstall = e; });
+window.addEventListener('appinstalled', () => { deferredInstall = null; updateInstallUI(); showToast(tr('installedMsg')); });
+
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadController) showToast(tr('updateReady')); });
+  window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(() => {}); });
+}
+
+window.onload = init;
+</script>
+</body>
+</html>
